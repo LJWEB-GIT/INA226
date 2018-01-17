@@ -1,4 +1,4 @@
-/*******************************************************************************************************************
+﻿/*******************************************************************************************************************
 ** Class definition header for the INA226 class. This library allows access to the INA226 High-Side or Low-Side   **
 ** Measurement, Bi-Directional Current and Power Monitor with I2C Compatible Interface. The datasheet can be      **
 ** download from Texas Instruments at http://www.ti.com/lit/ds/symlink/ina226.pdf. While there are breakout boards**
@@ -48,6 +48,8 @@
 **                                                                                                                **
 *******************************************************************************************************************/
 #include "Arduino.h"                                                          // Arduino data type definitions    //
+#define INA226_ADDRESS                         (0x40)
+
 #ifndef INA226_Class_h                                                        // Guard code definition            //
   #define INA226__Class_h                                                     // Define the name inside guard code//
   /*****************************************************************************************************************
@@ -92,11 +94,10 @@
   *****************************************************************************************************************/
   class INA226_Class {                                                        // Class definition                 //
     public:                                                                   // Publicly visible methods         //
-      INA226_Class();                                                         // Class constructor                //
+      INA226_Class();                         // Class constructor                //
       ~INA226_Class();                                                        // Class destructor                 //
-      uint8_t  begin(const uint8_t  maxBusAmps,                               // Class initializer                //
-                     const uint32_t microOhmR,                                //                                  //
-                     const uint8_t  deviceNumber = UINT8_MAX );               //                                  //
+	  void begin(void);
+	  uint8_t begin(const uint8_t address,const uint8_t maxBusAmps,const uint32_t microOhmR);
       uint16_t getBusMilliVolts(const bool waitSwitch=false,                  // Retrieve Bus voltage in mV       //
                                 const uint8_t deviceNumber=0);                //                                  //
       int16_t  getShuntMicroVolts(const bool waitSwitch=false,                // Retrieve Shunt voltage in uV     //
@@ -115,6 +116,12 @@
       void     setAlertPinOnConversion(const bool alertState,                 // Enable pin change on conversion  //
                                        const uint8_t deviceNumber=UINT8_MAX); //                                  //
     private:                                                                  // Private variables and methods    //
+	  uint8_t ina226_i2caddr;
+	  uint8_t ina226_operatingMode;
+	  uint8_t ina226_current_LSB;
+	  uint8_t ina226_calibration;
+	  uint8_t ina226_power_LSB;
+	  
       uint8_t  readByte(const uint8_t addr, const uint8_t deviceAddress);     // Read a byte from an I2C address  //
       int16_t  readWord(const uint8_t addr, const uint8_t deviceAddress);     // Read a word from an I2C address  //
       void     writeByte(const uint8_t addr, const uint8_t data,              // Write a byte to an I2C address   //
