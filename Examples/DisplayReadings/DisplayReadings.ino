@@ -65,13 +65,11 @@ void setup() {                                                                //
   #ifdef  __AVR_ATmega32U4__                                                  // If we are a 32U4 processor, then //
     delay(2000);                                                              // wait 2 seconds for the serial    //
   #endif                                                                      // interface to initialize          //
-  Serial.print(F("\n\nDisplay INA226 Readings V1.0.3\n"));                    // Display program information      //
-  // The begin initializes the calibration for an expected ±1 Amps maximum current and for a 0.1Ohm resistor, and //
+  
+  // The begin initializes the calibration for an expected ï¿½1 Amps maximum current and for a 0.1Ohm resistor, and //
   // since no specific device is given as the 3rd parameter all devices are initially set to these values         //
-  devicesFound = INA226.begin(1,100000);                                      // Set expected Amps and resistor   //
-  Serial.print(F("Detected "));                                               //                                  //
-  Serial.print(devicesFound);                                                 //                                  //
-  Serial.println(F(" INA226 devices on I2C bus"));                            //                                  //
+  INA226.begin(0x4A,1,100);                                                   // Set IIC_addr,MAX_bus_amps,mROhm  //
+  Serial.print(F("Start"));                                                   //                                  //
   INA226.setAveraging(4);                                                     // Average each reading n-times     //
   INA226.setBusConversion(7);                                                 // Maximum conversion time 8.244ms  //
   INA226.setShuntConversion(7);                                               // Maximum conversion time 8.244ms  //
@@ -104,3 +102,4 @@ void loop() {                                                                 //
   } // of for-next each device loop                                           //                                  //
   delay(5000);                                                                //                                  //
 } // of method loop                                                           //----------------------------------//
+
