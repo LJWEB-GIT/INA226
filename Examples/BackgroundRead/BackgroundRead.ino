@@ -1,11 +1,11 @@
-﻿/*******************************************************************************************************************
+/*******************************************************************************************************************
 ** Program to demonstrate using the interrupt pin of the INA226, a pin-change interrupt handler and the INA226    **
 ** to read voltage and current information in the background while allowing the main Arduino code to continue     **
 ** processing normally until it is ready to consume the readings.                                                 **
 **                                                                                                                **
 ** Detailed documentation can be found on the GitHub Wiki pages at https://github.com/SV-Zanshin/INA226/wiki      **
 **                                                                                                                **
-** This example is for a INA226 set up to measure a 5-Volt load with a 0.1Ω resistor in place, this is the same   **
+** This example is for a INA226 set up to measure a 5-Volt load with a 0.1惟 resistor in place, this is the same   **
 ** setup that can be found in the Adafruit INA219 breakout board.  The complex calibration options are done at    **
 ** runtime using the 2 parameters specified in the "begin()" call and the library has gone to great lengths to    **
 ** avoid the use of floating point to conserve space and minimize runtime.  This demo program uses floating point **
@@ -92,8 +92,8 @@ void setup() {                                                                //
     delay(3000);                                                              // wait 3 seconds for serial port   //
   #endif                                                                      // interface to initialize          //
   Serial.print(F("\n\nBackground INA226 Read V1.0.0\n"));                     // Display program information      //
-  // The begin initialized the calibration for an expected ±1 Amps maximum current and for a 0.1Ω resistor        //
-  INA226.begin(1,100000);                                                     //                                  //
+  // The begin initialized the calibration for an expected 卤1 Amps maximum current and for a 0.1惟 resistor        //
+  INA226.begin(0x4C,1,100000);                                                     //                                  //
   INA226.setAveraging(64);                                                    // Average each reading n-times     //
   INA226.setBusConversion(7);                                                 // Maximum conversion time 8.244ms  //
   INA226.setShuntConversion(7);                                               // Maximum conversion time 8.244ms  //
@@ -127,3 +127,4 @@ void loop() {                                                                 //
     sei();                                                                    // Enable interrupts                //
   } // of if-then we've reached the required amount of readings               //                                  //
 } // of method loop                                                           //----------------------------------//
+
